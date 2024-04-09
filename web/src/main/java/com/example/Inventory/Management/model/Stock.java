@@ -1,9 +1,9 @@
-package com.example.model;
+package com.example.Inventory.Management.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "inv_product_stock")
+@Table(name = "product_stock")
 public class Stock {
 
     @Id
@@ -16,7 +16,7 @@ public class Stock {
 
     @OneToOne
     @JoinColumn(name = "pid")
-    private Products products;
+    private Products productId;
 
     public Long getId() {
         return id;
@@ -34,11 +34,11 @@ public class Stock {
         this.qty = qty;
     }
 
-    public Products getProducts() {
-        return products;
+    public Products getProductId() {
+        return productId;
     }
 
-    public void setProducts(Products products) {
-        this.products = products;
+    public void setProductId(Products productId) {
+        this.productId = productId;
     }
 }

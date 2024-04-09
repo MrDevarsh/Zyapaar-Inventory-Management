@@ -1,9 +1,9 @@
-package com.example.model;
+package com.example.Inventory.Management.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "inv_product_details")
+@Table(name = "product_details")
 public class Products {
 
     @Id

@@ -1,4 +1,7 @@
-package com.example.dao;
+package com.example.Inventory.Management.dao;
 
-public interface ProductDao {
+import com.example.Inventory.Management.model.Products;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductDao extends JpaRepository<Products, Long> {
 }
