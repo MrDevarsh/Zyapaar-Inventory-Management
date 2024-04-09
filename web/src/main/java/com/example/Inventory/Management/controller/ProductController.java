@@ -60,4 +60,16 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<String> deleteProduct(
+            @RequestParam Long id
+    ){
+        try{
+            productService.deleteProduct(id);
+            return ResponseEntity.ok("Product has been deleted");
+        }catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to delete product: " + e.getMessage());
+        }
+    }
+
 }

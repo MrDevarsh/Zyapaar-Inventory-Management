@@ -2,26 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewProducts.css';
 import DeleteIcon from '@mui/icons-material/Delete'; 
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const ViewProducts = ({ refreshView }) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  
+  const fetchData = async () => {
+    setIsLoading(true);
+    
+
+    try {
+      const response = await axios.get('http://localhost:8080/getProducts'); 
+      setProducts(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      toast(error.message);
+    } 
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const response = await axios.get('http://localhost:8080/getProducts'); 
-        setProducts(response.data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    
 
     fetchData();
   }, [refreshView]);
@@ -30,12 +32,20 @@ const ViewProducts = ({ refreshView }) => {
     return <p>Loading products...</p>;
   }
 
-  if (error) {
-    return <p className="error-message">Error: {error}</p>;
-  }
-
   if (!products.length) {
     return <p>No products found.</p>;
+  }
+
+  const handleDelete = async (i) => {
+    
+    try {
+        const response = await axios.delete('http://localhost:8080/delete?id=' + i); 
+        toast(response.data);
+        fetchData();
+      } catch (error) {
+        toast(error.message);
+      } 
+
   }
 
   return (
@@ -58,7 +68,12 @@ const ViewProducts = ({ refreshView }) => {
               <td>${product.price.toFixed(2)}</td>
               <td>{product.description}</td>
               <td>{product.qty}</td>
-              <td><DeleteIcon /></td>
+              <td><DeleteIcon 
+                    sx={{
+                        'cursor': 'pointer'
+                    }}
+                    onClick={() => handleDelete(product.id)}
+                    /></td>
             </tr>
           ))}
         </tbody>

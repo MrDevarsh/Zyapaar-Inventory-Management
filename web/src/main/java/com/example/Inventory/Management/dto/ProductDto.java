@@ -2,11 +2,19 @@ package com.example.Inventory.Management.dto;
 
 public class ProductDto {
 
+    private Long id;
     private String name;
     private Long price;
     private String description;
     private Long qty;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

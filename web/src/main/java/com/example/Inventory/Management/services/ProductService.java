@@ -11,4 +11,6 @@ public interface ProductService {
     ResponseEntity<ProductDto> getProductById(Long id);
 
     void addProduct(ProductDto prod);
+
+    void deleteProduct(Long id);
 }

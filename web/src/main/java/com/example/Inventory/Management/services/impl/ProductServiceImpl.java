@@ -54,4 +54,15 @@ public class ProductServiceImpl implements ProductService {
         productDao.save(prod);
         stockDao.save(stock);
     }
+
+    @Override
+    public void deleteProduct(Long id) {
+        Optional<Products> prod = productDao.findById(id);
+
+        Stock stock = prod.get().getStock();
+
+        productDao.delete(prod.get());
+        stockDao.delete(stock);
+
+    }
 }

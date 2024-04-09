@@ -13,6 +13,7 @@ public class ProductStockMapper {
         Products prod = new Products();
         Stock stock = new Stock();
 
+        prod.setId(dto.getId());
         prod.setName(dto.getName());
         prod.setDescription(dto.getDescription());
         prod.setPrice(dto.getPrice());
@@ -27,6 +28,7 @@ public class ProductStockMapper {
     public static ProductDto convertMappertoDto(Products prod) {
         ProductDto dto = new ProductDto();
 
+        dto.setId(prod.getId());
         dto.setDescription(prod.getDescription());
         dto.setName(prod.getName());
         dto.setPrice(prod.getPrice());
