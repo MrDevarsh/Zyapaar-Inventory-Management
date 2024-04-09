@@ -13,7 +13,7 @@ const ViewProducts = () => {
       setError(null);
 
       try {
-        const response = await axios.get('http://localhost:8080/getProducts'); // Replace with your API endpoint
+        const response = await axios.get('http://localhost:8080/getProducts'); 
         setProducts(response.data);
       } catch (error) {
         setError(error.message);
@@ -23,7 +23,7 @@ const ViewProducts = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array: fetch data only on component mount
+  }, []); 
 
   if (isLoading) {
     return <p>Loading products...</p>;
@@ -51,9 +51,9 @@ const ViewProducts = () => {
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id}> {/* Use a unique identifier like product ID for key */}
+            <tr key={product.id}> 
               <td>{product.name}</td>
-              <td>${product.price.toFixed(2)}</td> {/* Format price with 2 decimal places */}
+              <td>${product.price.toFixed(2)}</td>
               <td>{product.description}</td>
               <td>{product.qty}</td>
             </tr>

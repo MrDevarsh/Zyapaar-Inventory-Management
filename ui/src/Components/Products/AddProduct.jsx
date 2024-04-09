@@ -12,7 +12,6 @@ const AddProduct = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Basic validation (can be extended)
     if (!name || !price || !description || !qty) {
       setErrorMessage('Please fill in all required fields.');
       return;
@@ -26,12 +25,11 @@ const AddProduct = () => {
       });
 
       if (response.status === 200) {
-        // Handle successful product creation (e.g., clear form, show success message)
         setName('');
         setPrice(0);
         setDescription('');
         setQty(0);
-        setErrorMessage(null); // Clear any previous errors
+        setErrorMessage(null); 
       } else {
         throw new Error(`Failed to add product: ${response.statusText}`);
       }
@@ -59,7 +57,7 @@ const AddProduct = () => {
             type="number"
             id="price"
             value={price}
-            onChange={(e) => setPrice(Number(e.target.value))} // Ensure numeric input
+            onChange={(e) => setPrice(Number(e.target.value))}
           />
         </div>
         <div className="form-group">
@@ -76,7 +74,7 @@ const AddProduct = () => {
             type="number"
             id="qty"
             value={qty}
-            onChange={(e) => setQty(Number(e.target.value))} // Ensure numeric input
+            onChange={(e) => setQty(Number(e.target.value))} 
           />
         </div>
         <button type="submit">Add Product</button>
