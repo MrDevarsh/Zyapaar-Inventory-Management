@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './AddProduct.css';
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProduct = ({ onProductAdded }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState('');
   const [qty, setQty] = useState(0);
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!name || !price || !description || !qty) {
-      setErrorMessage('Please fill in all required fields.');
+      toast('Please fill in all required fields.');
       return;
     }
 
@@ -29,15 +30,15 @@ const AddProduct = ({ onProductAdded }) => {
         setPrice(0);
         setDescription('');
         setQty(0);
-        setErrorMessage(null); 
         if (onProductAdded) {
-            onProductAdded(); // Call the callback function
+            toast("Product Added Successfully!!!");
+            onProductAdded(); 
           }
       } else {
-        throw new Error(`Failed to add product: ${response.statusText}`);
+        toast(`Failed to add product: ${response.statusText}`);
       }
     } catch (error) {
-      setErrorMessage(error.message);
+      toast(error.message);
     }
   };
 
@@ -81,7 +82,6 @@ const AddProduct = ({ onProductAdded }) => {
           />
         </div>
         <button type="submit">Add Product</button>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </form>
     </div>
   );

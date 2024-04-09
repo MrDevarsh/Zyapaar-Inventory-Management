@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewProducts.css';
+import DeleteIcon from '@mui/icons-material/Delete'; 
 
 const ViewProducts = ({ refreshView }) => {
   const [products, setProducts] = useState([]);
@@ -47,6 +48,7 @@ const ViewProducts = ({ refreshView }) => {
             <th>Price</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -56,6 +58,7 @@ const ViewProducts = ({ refreshView }) => {
               <td>${product.price.toFixed(2)}</td>
               <td>{product.description}</td>
               <td>{product.qty}</td>
+              <td><DeleteIcon /></td>
             </tr>
           ))}
         </tbody>

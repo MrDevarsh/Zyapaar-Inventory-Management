@@ -1,6 +1,6 @@
 .add-product-container {
     padding: 20px;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     border-radius: 5px;
     margin-bottom: 20px;
   }
@@ -29,4 +29,5 @@
     color: white;
     padding: 10px 20px;
     border: none;
+    cursor: pointer;
   }  
