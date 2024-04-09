@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ViewProducts.css';
 
-const ViewProducts = () => {
+const ViewProducts = ({ refreshView }) => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const ViewProducts = () => {
     };
 
     fetchData();
-  }, []); 
+  }, [refreshView]);
 
   if (isLoading) {
     return <p>Loading products...</p>;

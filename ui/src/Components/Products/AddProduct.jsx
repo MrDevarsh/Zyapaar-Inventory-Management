@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AddProduct.css';
 
-const AddProduct = () => {
+const AddProduct = ({ onProductAdded }) => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState('');
@@ -30,6 +30,9 @@ const AddProduct = () => {
         setDescription('');
         setQty(0);
         setErrorMessage(null); 
+        if (onProductAdded) {
+            onProductAdded(); // Call the callback function
+          }
       } else {
         throw new Error(`Failed to add product: ${response.statusText}`);
       }
