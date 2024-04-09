@@ -23,3 +23,7 @@
     background-color: #000000;
   }
   
+  .icon {
+    cursor: pointer;
+    margin-right: 2px;
+  }
