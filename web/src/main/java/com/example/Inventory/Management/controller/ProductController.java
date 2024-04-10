@@ -72,4 +72,20 @@ public class ProductController {
         }
     }
 
+    @PutMapping(path = "/update")
+    public ResponseEntity<String> updateProduct(
+            @RequestBody ProductDto prod
+    ) {
+        if (prod == null) {
+            return ResponseEntity.badRequest().body("Product name cannot be empty");
+        }
+
+        try {
+            productService.updateProduct(prod);
+            return ResponseEntity.ok("Product updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("Failed to update product: " + e.getMessage());
+        }
+    }
+
 }

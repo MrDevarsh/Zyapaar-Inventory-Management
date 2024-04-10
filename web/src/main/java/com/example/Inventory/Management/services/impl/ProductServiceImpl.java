@@ -65,4 +65,24 @@ public class ProductServiceImpl implements ProductService {
         stockDao.delete(stock);
 
     }
+
+    @Override
+    public void updateProduct(ProductDto dto) {
+        Optional<Products> existingProduct = productDao.findById(dto.getId());
+
+        if (existingProduct.isPresent()) {
+            Products product = existingProduct.get();
+
+            product.setPrice(dto.getPrice());
+            product.setDescription(dto.getDescription());
+
+            Stock stock = product.getStock();
+
+            stock.setQty(dto.getQty());
+
+            productDao.save(product);
+            stockDao.save(stock);
+        }
+    }
+
 }
