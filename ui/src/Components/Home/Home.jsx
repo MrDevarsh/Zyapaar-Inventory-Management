@@ -12,10 +12,14 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="add-product">
-        <AddProduct onProductAdded={handleProductAdded} /> 
+        <AddProduct 
+        // onProductAdded={handleProductAdded}
+         /> 
       </div>
       <div className="view-products">
-        <ViewProducts key={refreshView ? 'refreshed' : 'not-refreshed'} />
+        <ViewProducts 
+        // key={refreshView ? 'refreshed' : 'not-refreshed'}
+         />
       </div>
     </div>
   );
