@@ -47,7 +47,24 @@ const AddProduct = () =>
     //   };
 
     const handleEdit = async () => {
-      const productData = { "id" : editProductData[0].id, "name" : name, price, description, qty };
+      const productData = {
+        id: editProductData[0].id,
+        name: name,
+        price,
+        description,
+        qty,
+      };
+
+        clearForm();
+        setEditProduct(!editProduct);
+
+        dispatch(updateProduct({
+          "id": '',
+          "name": '',
+          "price": '',
+          "description": '',
+          "qty": ''
+        }));
 
       try {
         const response = await axios.put(
@@ -59,35 +76,35 @@ const AddProduct = () =>
         );
 
         if (response.status === 200) {
-          setName("");
-          setPrice(0);
-          setDescription("");
-          setQty(0);
+          
           dispatch(addProduct(productData));
-          
+
           toast.success(response.data);
-          
         } else {
           toast.error(response.data);
         }
       } catch (error) {
         toast.error(error.message);
       }
-    }
+    };
 
-    const handleCancel = () => {
+    const clearForm = () => {
       setName("");
       setPrice(0);
       setDescription("");
       setQty(0);
-      setEditProduct(!editProduct);
     }
+
+    const handleCancel = () => {
+      clearForm();
+      setEditProduct(!editProduct);
+    };
 
     const handleSubmit = async (event) => {
       event.preventDefault();
 
-      if (!name || !price || !description || !qty) {
-        toast.error("Please fill in all required fields.");
+      if (!name || !price || !description || !qty || !editProduct) {
+        // toast.error("Please fill in all required fields.");
         return;
       }
 
@@ -103,10 +120,7 @@ const AddProduct = () =>
         );
 
         if (response.status === 200) {
-          setName("");
-          setPrice(0);
-          setDescription("");
-          setQty(0);
+          clearForm();
           dispatch(addProduct(productData));
           // if (onProductAdded) {
           toast.success("Product Added Successfully!!!");
@@ -126,22 +140,22 @@ const AddProduct = () =>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
-            {editProduct ?
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            :
-            <input
-              type="text"
-              id="name"
-              value={name}
-              disabled="true"
-              // onChange={(e) => setName(e.target.value)}
-            />
-  }
+            {editProduct ? (
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            ) : (
+              <input
+                type="text"
+                id="name"
+                value={name}
+                disabled="true"
+                // onChange={(e) => setName(e.target.value)}
+              />
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="price">Price:</label>
@@ -169,16 +183,21 @@ const AddProduct = () =>
               onChange={(e) => setQty(Number(e.target.value))}
             />
           </div>
-          {editProduct ?
-          <button type="submit">Add Product</button>
-          :
-          <>
-            <button onClick={handleEdit}>Edit Product</button>
-            <button onClick={handleCancel} style={{
-              "marginLeft" : "3px"
-            }}>Cancel</button>
-          </>  
-        }
+          {editProduct ? (
+            <button type="submit">Add Product</button>
+          ) : (
+            <>
+              <button onClick={handleEdit}>Edit Product</button>
+              <button
+                onClick={handleCancel}
+                style={{
+                  marginLeft: "3px",
+                }}
+              >
+                Cancel
+              </button>
+            </>
+          )}
         </form>
       </div>
     );
